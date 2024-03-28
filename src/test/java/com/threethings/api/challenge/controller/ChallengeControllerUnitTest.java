@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.threethings.api.challenge.dto.ChallengeCreateRequestDto;
+import com.threethings.api.challenge.dto.ChallengeLikeRequestDto;
 import com.threethings.api.challenge.facade.ChallengeFacade;
 import com.threethings.api.challenge.factory.ChallengeCreateRequestFactory;
 import com.threethings.api.config.LocalDateSerializer;
@@ -62,5 +63,21 @@ public class ChallengeControllerUnitTest {
 		// then
 		resultActions.andExpect(status().isOk());
 		then(challengeFacade).should(times(1)).createChallenge(any(), any());
+	}
+
+	@Test
+	@DisplayName("좋아요 등록")
+	void likeChallengeTest() throws Exception {
+		// given
+		final ChallengeLikeRequestDto req = new ChallengeLikeRequestDto(1L, Boolean.FALSE);
+
+		// when
+		final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/api/challenge/like")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(gson.toJson(req)));
+
+		// then
+		resultActions.andExpect(status().isOk());
+		then(challengeFacade).should(times(1)).likeChallenge(any(), any());
 	}
 }

@@ -6,3 +6,12 @@
 
 operation::challenge-controller-integration-test/create-challenge-test[snippets='http-request,request-fields,request-headers,http-response,response-fields']
 
+[[Challenge-좋아요]]
+=== Challenge-좋아요, 좋아요 삭제
+
+operation::challenge-controller-integration-test/like-challenge-test[snippets='http-request,request-fields,request-headers,http-response,response-fields']
+
+[[Challenge-검색]]
+=== Challenge-검색
+
+operation::challenge-controller-integration-test/search-challenge-test[snippets='http-request,query-parameters,request-headers,http-response,response-fields']

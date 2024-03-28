@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.threethings.api.challenge.domain.Challenge;
 import com.threethings.api.challenge.domain.ChallengeCategory;
 import com.threethings.api.challengemember.domain.ChallengeMember;
 import com.threethings.api.global.common.BaseEntity;
@@ -20,6 +21,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -58,6 +60,9 @@ public class Member extends BaseEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
 	private List<ChallengeMember> challengeMemberList = new ArrayList<>();
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "favoriteMembers")
+	private Set<Challenge> favoriteChallenge = new HashSet<>();
+
 	@Builder
 	public Member(String nickname, String socialCode, Provider provider,
 		Set<ChallengeCategory> favoriteChallengeCategories, Long profileImageId) {
@@ -76,6 +81,14 @@ public class Member extends BaseEntity {
 	public void addFavoriteChallengeCategories(Set<ChallengeCategory> newCategories) {
 		this.favoriteChallengeCategories.clear();
 		this.favoriteChallengeCategories.addAll(newCategories);
+	}
+
+	public void addFavoriteChallenge(Challenge challenge) {
+		favoriteChallenge.add(challenge);
+	}
+
+	public void removeFavoriteChallenge(Challenge challenge) {
+		favoriteChallenge.remove(challenge);
 	}
 
 }

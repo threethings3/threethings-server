@@ -1,6 +1,9 @@
 package com.threethings.api.challenge.service;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,4 +36,20 @@ class ChallengeServiceTest {
 		// then
 		then(challengeRepository).should(times(1)).save(any());
 	}
+
+	@Test
+	@DisplayName("챌린지 조회 테스트")
+	void findChallengeWithChallengeIdTest() {
+		// given
+		Long id = 1L;
+		given(challengeRepository.findById(anyLong())).willReturn(
+			Optional.ofNullable(ChallengeFactory.createChallenge()));
+
+		// when
+		final Challenge challenge = challengeService.findChallenge(id);
+
+		// then
+		assertThat(challenge.getTitle()).isEqualTo("삼시 세끼 밥 먹기");
+	}
+
 }

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.threethings.api.challenge.domain.ChallengeCategory;
 import com.threethings.api.member.domain.Member;
@@ -17,7 +16,6 @@ public class MemberTestInitDB {
 	@Autowired
 	MemberRepository memberRepository;
 
-	@Transactional
 	public void initDB() {
 		initTestMember();
 	}
@@ -28,14 +26,16 @@ public class MemberTestInitDB {
 			.provider(Provider.NAVER)
 			.socialCode("12345678")
 			.profileImageId(1L)
-			.favoriteChallengeCategories(Set.of(ChallengeCategory.EXERCISE, ChallengeCategory.GROWTH)).build();
+			.favoriteChallengeCategories(Set.of(ChallengeCategory.EXERCISE, ChallengeCategory.GROWTH))
+			.build();
 
 		Member member2 = Member.builder()
 			.nickname("testMember2")
 			.provider(Provider.KAKAO)
 			.socialCode("-12345678")
 			.profileImageId(2L)
-			.favoriteChallengeCategories(Set.of(ChallengeCategory.PET_CARE, ChallengeCategory.GROWTH)).build();
+			.favoriteChallengeCategories(Set.of(ChallengeCategory.MINDFULNESS, ChallengeCategory.GROWTH))
+			.build();
 
 		memberRepository.saveAll(List.of(member1, member2));
 	}

@@ -2,7 +2,6 @@ package com.threethings.api.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -33,8 +32,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(authorize ->
 				authorize.requestMatchers(WHITE_LIST).permitAll()
 					.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-					.requestMatchers(HttpMethod.POST, "/api/challenge").authenticated()
-					.requestMatchers( "/api/challenge/cert").authenticated()
+					.anyRequest().authenticated()
 			)
 			.addFilterBefore(new JwtAuthenticationFilter(userDetailsService),
 				UsernamePasswordAuthenticationFilter.class)

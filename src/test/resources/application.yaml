@@ -21,7 +21,7 @@ spring:
         format_sql: 'false'
         show_sql: 'true'
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 
 jwt:
   key:

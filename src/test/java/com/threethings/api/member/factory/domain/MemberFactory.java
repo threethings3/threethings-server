@@ -15,4 +15,13 @@ public class MemberFactory {
 			.profileImageId(1L)
 			.favoriteChallengeCategories(Set.of(ChallengeCategory.EXERCISE, ChallengeCategory.GROWTH)).build();
 	}
+
+	public static Member anotherMember() {
+		return Member.builder()
+			.nickname("member1")
+			.provider(Provider.NAVER)
+			.socialCode("-12345678")
+			.profileImageId(2L)
+			.favoriteChallengeCategories(Set.of(ChallengeCategory.EXERCISE, ChallengeCategory.GROWTH)).build();
+	}
 }
